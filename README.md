@@ -2,6 +2,8 @@
 
 Example Usage
 
+$  `npm install --save git+ssh://git@github.com/workplacearcade/logo-animated.git`
+
 ```jsx
 Import Logo from 'arcade-logo';
 ...
