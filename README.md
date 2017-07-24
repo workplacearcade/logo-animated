@@ -1,5 +1,7 @@
 # Animated Arcade Logo
 
+![Animated Arcade Logo](https://s3.amazonaws.com/arcade-assets-public/logo/animated-logo.gif)
+
 Example Usage
 
 $  `npm install --save git+ssh://git@github.com/workplacearcade/logo-animated.git`
@@ -8,13 +10,14 @@ $  `npm install --save git+ssh://git@github.com/workplacearcade/logo-animated.gi
 Import Logo from 'arcade-logo';
 ...
 
-SomeClass extends Component {
+class SomeClass extends Component {
   render(){
     return(
       <div>
-        <Logo />
+        <Logo rotate />
       </div>
     )
   }
 }
 ```
+
