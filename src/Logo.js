@@ -1,52 +1,61 @@
 import React, { Component } from "react";
+import PropTypes from 'prop-types';
 // import "./Logo.css";
 
-const colors = [
-  "#0D74AD",
-  "#0290C3",
-  "#00A3D6",
-  "#01C0E6",
-  "#02CDEB",
-  "#FF4E32",
-  "#FF261C",
-  "#CF1D1A",
-  "#F92514",
-  "#EB2219",
-  "#FF8F14",
-  "#FFAE14",
-  "#FFCA13",
-  "#FFE215",
-  "#03DAC9",
-  "#07D2B6",
-  "#03C8A2",
-  "#00AB8B",
-  "#00967E"
-];
 
 class Logo extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      colors: colors
+      rotate: this.props.rotate,
+      colors: colors,
+      rotation: 'backwards',
+      shuffleSpeed: 100,
     };
   }
+
   componentDidMount() {
-    setInterval(()=>{
-      this.shuffleColorsBackards();
-    }, 100);
+    (this.state.rotate)
+    ? this.start()
+    : false
   }
+
+  componentWillReceiveProps(nextProps) {
+    (nextProps.rotate)
+    ? this.start()
+    : this.stop();
+  }
+
+  componentDidUnMount() {
+    clearInterval(this.interval);
+  }
+
+  shuffle() {
+    (this.state.rotation === 'backwards')
+    ? this.interval = setInterval(this.shuffleColorsBackwards.bind(this), 100)
+    : this.interval = setInterval(this.shuffleColors.bind(this), 100);
+  }
+
   shuffleColors() {
     let newColors = this.state.colors;
     newColors.push(newColors.shift());
-    this.setState({ color: newColors });
+    this.setState({ colors: newColors });
   }
-  shuffleColorsBackards() {
+
+  shuffleColorsBackwards() {
     let newColors = this.state.colors;
     newColors.unshift(newColors.pop());
-    this.setState({ color: newColors });
+    this.setState({ colors: newColors });
   }
-  handleClick = () => {
-    this.shuffleColors();
+
+  stop() {
+    this.setState({ rotate: false });
+    clearInterval(this.interval);
+  }
+
+  start(){
+    this.setState({ rotate: true });
+    this.shuffle();
   }
 
   render() {
@@ -170,4 +179,34 @@ class Logo extends Component {
   }
 }
 
+Logo.propTypes = {
+  rotate: React.PropTypes.bool.isRequired
+};
+
+Logo.defaultProps = {
+  rotate: true
+}
+
 export default Logo;
+
+const colors = [
+  "#0D74AD",
+  "#0290C3",
+  "#00A3D6",
+  "#01C0E6",
+  "#02CDEB",
+  "#FF4E32",
+  "#FF261C",
+  "#CF1D1A",
+  "#F92514",
+  "#EB2219",
+  "#FF8F14",
+  "#FFAE14",
+  "#FFCA13",
+  "#FFE215",
+  "#03DAC9",
+  "#07D2B6",
+  "#03C8A2",
+  "#00AB8B",
+  "#00967E"
+];

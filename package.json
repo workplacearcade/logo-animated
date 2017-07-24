@@ -43,5 +43,8 @@
     "react-test-renderer": "^15.6.1",
     "rimraf": "^2.6.1",
     "webpack": "^3.3.0"
+  },
+  "dependencies": {
+    "prop-types": "^15.5.10"
   }
 }
